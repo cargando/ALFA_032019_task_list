@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+	<h1>Intro to JS 2</h1>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+
+					<div class="form-group">
+						<label for="taskName">Task name <span class="text-danger">*</span></label>
+						<input class="form-control" id="taskName" placeholder="Enter task name">
+						<small id="taskHelp" class="form-text">Это поле обязательно для заполнения</small>
+					</div>
+
+					<div class="form-group">
+						<label for="taskDescription">Task Description</label>
+						<textarea class="form-control" id="taskDescription" rows="3"></textarea>
+						<small id="descriptionHelp" class="form-text text-muted">TODO</small>
+					</div>
+
+					<div class="form-group">
+						<label for="taskDate">Task Date <span class="text-danger">*</span></label>
+						<input class="form-control" id="taskDate" placeholder="Enter task Date">
+						<small id="helpTaskDate" class="form-text text-muted">TODO</small>
+					</div>
+
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="taskUrgent">
+						<label class="form-check-label" for="taskUrgent">
+							<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i>
+							urgent
+						</label>
+					</div>
+				</div> <!-- END of col-md-6 -->
+
+				<div class="col">
+					<div class="row">
+						<div class="col-sm-6">
+							<button
+									onclick="handleAddTask();"
+									type="button" class="btn btn-primary">Add new task</button>
+						</div>
+						<div class="col-sm-6">
+							<button
+									onclick="clearForm()"
+									type="button" class="btn btn-secondary">Clear form</button>
+						</div>
+					</div>
+					<br />&nbsp;
+				</div> <!-- END of col -->
+
+			</div> <!-- END of CARD -->
+		</div> <!-- END of col-md-6 -->
+
+
+
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h3>List of tasks</h3>
+
+					<ul class="list-group">
+						<li class="list-group-item">Cras justo odio
+							<i class="fas fa-edit text-muted"></i>
+							<i class="fas fa-trash-alt text-muted"></i>
+						</li>
+						<li class="list-group-item">Dapibus ac facilisis in</li>
+						<li class="list-group-item">Morbi leo risus</li>
+						<li class="list-group-item">Porta ac consectetur ac</li>
+						<li class="list-group-item">Vestibulum at eros</li>
+					</ul> <!-- END of list-group -->
+
+				</div> <!-- END of CARD-BODY -->
+			</div> <!-- END of CARD -->
+		</div> <!-- END of col-md-6 -->
+
+
+	</div>
+</div>
+
+<br> <br> &nbsp;
+
+
+
+<div class="modal" tabindex="-1" role="dialog" style="display: none">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Modal body text goes here.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+<script>
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

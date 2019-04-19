@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+<h1>Intro to JS 2</h1>
+
+
+<script src="/js/scripts.js"></script>
+<script>
+	/*
+
+	var name = "Sofia";
+
+	let street = "Кадашевская набережная";
+	if (1) {
+		const street2 = "Ярцевкая улица";
+		console.log("Пытаюсь вывеси street #2", street2);
+	}
+	console.log("Пытаюсь вывеси street", street);
+	// console.log("Еще раз пытаюсь вывеси street #2", street2);
+	const houseNumber = 10;
+	street = 19;
+
+	// test(someValue);
+
+	console.log("Привет мир!", name, street);
+	// alert(name);
+	city = "Moscow";
+
+	const person1 = {};
+
+	const person2 = {
+		name: "Alexander", // тип строка String
+		age: 27, // тип число Number
+	};
+	console.log("Person 1 (1): ", person1);
+	person1.institute = "MATI";
+
+	console.log("Person 1 (2): ", person1);
+
+	person1.private = person2;
+	console.log("Person 1 (3): ", person1);
+
+
+
+
+	console.log("Person 2 (1): ", person2);
+
+	person1.private.age = 100;
+	console.log("Person 2 (2): ", person2);
+
+	var a1 = { x: 5 };
+	var z2 = a1;
+	a1.y = a1 = {b: "Jone Doe"};
+
+	console.log("a1: ", a1);
+	console.log("z2: ", z2);
+
+	var a = 0;
+	var b = ' 0';
+
+	var person = {
+		name: 'Sofia',
+		age: 30,
+		address: 'Kdashevskaya nab. 41',
+		toString: function () {
+			return this.name + ', ' + ', age: ' + this.age + ', ' + this.address;
+			// return this.age;
+		},
+		valueOf: function() {
+			return this.age;
+		}
+	}
+	console.log('PERSON string = ', person + ' комментарий ');
+	console.log('PERSON number = ', person + 500);
+
+	console.log(new Date);
+	console.log(' ' + new Date);
+
+
+
+
+	// null undefined
+	console.log('NULL vs UNDEFINED', null === undefined);
+
+		var N;
+		console.log('N = ', N);
+		console.log('1) person.city = ', JSON.stringify(person), person.city);
+
+		person.city = 10;
+	console.log('2) person.city = ', JSON.stringify(person));
+
+	var person3 = null;
+
+	var userAdress = "Кадашевская набережная дом 45";
+
+	var i = 0;
+
+	for(;;) {
+		if (i >= userAdress.length) {
+			break;
+		}
+		console.log("index [", i, "] = ", userAdress[i]);
+		i++;
+	}
+
+	for(var j = 0; j < userAdress.length; j++) {
+		if (!((j+1) % 2)) {
+			continue;
+		}
+		console.log("index2 [", j, "] = ", userAdress[j]);
+
+		if(j > 10) {
+			break;
+		}
+	}*/
+/*
+	j = 0;
+	while(j < userAdress.length) {
+		console.log("index3 [", j, "] = ", userAdress[j]);
+		j++;
+	}
+
+	j = 0;
+	do{
+		console.log("index4 [", j, "] = ", userAdress[j]);
+		j++;
+	}
+	while(j < userAdress.length)
+*/
+/*
+	var str2 = "Some TexT";
+
+	console.log(str2.length, String(345345).length);
+	console.log(+"34534", Number("34534")); // Number("34534")
+
+	console.log(str2.toUpperCase(), str2.toLowerCase());
+
+	console.log(' Симовл из позиции 4', str2.charAt(3) );
+	console.log(' Кусок строки начинается = ', str2.indexOf("TexT"), str2.indexOf("sdfs") );
+
+	// substring, substr, slice
+	console.log(' Подстрока c 2 по 4= ', str2.substring(2, 4) );
+	console.log(' Подстрока c 2 плюс длина в 4 симв= ', str2.substr(2, 4) );
+	console.log(' Подстрока тоже что и sibstring, только с конца = ',
+		str2.slice(0, 4) );
+// ЧИСЛА - NUMBER
+
+	var k = 200;
+	var h = 0xC8;
+	console.log('Числа: ', k, h);
+
+	console.log('делим 200 на 0 = ', k / 0, isFinite(k / 0));
+
+	console.log('parseInt = ', parseInt("230.54", 10), parseInt("FF", 16));
+	console.log('parseFloat = ', parseFloat("230.54"));
+
+	console.log('Округление Math.floor(3.8543) = ', Math.floor(3.8543));
+	console.log('Округление Math.ceil(3.8543) = ', Math.ceil(3.8543));
+	console.log('Округление Math.round(3.8543) = ', Math.round(3.8543));
+
+	var v = 3.45;
+	var m = 3.45;
+	console.log('Сравнить v === m', v === m, 0.001);
+
+	var ms = [];
+	var ms2 = new Array("Smolenks", "Murmansk");
+	var ms3 = ["Smolenks", "Murmansk"];
+
+	console.log('Пустой массив', ms);
+	ms[0] = "Samara";
+	ms[5] = "Moscow";
+	console.log('Пустой массив', ms, ms[2]);
+	console.log('второй массив', ms2);
+	console.log('третий массив', ms3);
+	ms3[10] = "Десятный элемент";
+	ms3.push("Киров", "Архангельск",6 , {name: "Sofia"});
+	console.log('третий массив #2', JSON.stringify(ms3));
+	ms3.pop();
+	console.log('третий массив удаление через POP #3', ms3);
+	var tmp = ms3.shift();
+	console.log('третий массив shift', tmp, ms3);
+
+	// МАССИВЫ - ПЕРЕБОР ЭЛЕМЕНТОВ
+	for(var k = 0; k < ms3.length; k++) {
+		console.log('Элемент ', k, "=", ms3[k]);
+	}
+	console.log('FOR IN');
+	for(var o in ms3) {
+		console.log('Элемент ', o, "=", ms3[o]);
+	}
+
+	console.log('FOR EACH');
+	ms3.forEach((item, index) => {
+		console.log('Элемент ', index, "=", item);
+	})
+
+	// МАССИВЫ ВСТРОЕННЫЕ МЕТОДЫ
+	var string1 = "Санкт-Петербург, Москва, Архангельск, Мурманск, Владивосток";
+	var cities = string1.split(", ")
+
+	console.log('SPLIT', string1, cities);
+	// console.log('JOIN', cities.join(" - "));
+	// delete cities[2]
+	// console.log('AFER delete', cities);
+
+	// splice - удаляет, вставляет
+	// console.log("SPLICE ", cities.splice(0, 2), cities);
+
+	console.log("SPLICE ", cities.splice(3, 1, "Гватемала", "Сочи", "Калининград"), cities);
+	console.log("SPLICE ", cities.splice(1, 0, "Минск"), cities);
+
+	// SLICE
+
+	var citiesCopy = cities.slice();
+	cities[0] = "New York";
+	console.log("SLICE ", citiesCopy, cities);
+
+	console.log("REVERS = ", cities.reverse());
+
+	var newCities = cities.concat("Boston", "Los Angeles");
+	console.log("concat = ", newCities);
+
+
+
+	var str1 = "sdf fdkljsdl,lksdjfl;skdjfls dkjfsl;kdjf sldkjf ";
+	var delemiter = " ,;";
+
+	// МАССИВЫ МЕТОДЫ ПЕРЕБОРА
+
+	// FILTER
+
+	var citiesFiltered = cities.filter(function (item, index){
+		if ((index+1)%2) {
+			return true;
+		}
+	});
+
+	var citiesMap = cities.map(function (item, index){
+		//
+		return item + ' - я тут был';
+	})
+	console.log('citiesMap: ', citiesMap)
+
+	// ery/some -
+	var msDigits = [1, 5, 43, 28, 10, 14];
+
+	var externalSum = msDigits.reduce(function (acc, item, index) {
+		console.log('SUM INSIDE ', acc, item, ', gona return ', acc + item);
+		var sum = acc + item;
+		return sum;
+	});
+
+	console.log('externalSum = ', externalSum);
+
+*/
+
+	var name = "Peter";
+
+	function Person(name, age) {
+		var tmpName = name + age;
+
+		this._name = name;
+		this._age = age;
+		this.phone = {
+			country: null,
+			region: null,
+			number: null,
+		};
+		this.address = {
+			city: null,
+			street: null,
+			house: null,
+		};
+		// setPhone - метод, который принимает либо 3 параметра: код страны, города и телефон
+		// setAdsress - устанавливает адрес юзера
+		// printUser - выводить в строку все поля юзера через зпт
+
+		this.hobby = [];
+		console.log('Function Person executed for', name, this._name, this.name);
+
+		var tmpObject = {
+			userName: 'Noname',
+		};
+
+		return tmpObject;
+	}
+
+	console.log(Person('Sofi', 30));
+
+	var user1 = new Person('Andrey', 27);
+
+	console.log(user1);
+
+
+	function sayHellow(text) {
+		var txt = text || sayHellow.defaultText;
+		/*
+		if (!text) {
+			txt = sayHellow.defaultText;
+		} else {
+			txt = text;
+		} */
+
+		console.log(txt);
+	}
+
+	sayHellow.defaultText = "Нечего сказать";
+	sayHellow.clear = function () {
+		console.clear();
+	}
+
+	/*
+	var sayHellow = {
+		defaultText: "Нечего сказать",
+		clear: function(){ console.clear(); }
+	}
+	*/
+	sayHellow.clear();
+	sayHellow("Привет мир!");
+	sayHellow();
+
+	function printUserName(fname, lname) {
+		console.log("Got user: ", fname, lname);
+		// console.log("Function arguments: ", arguments);
+		var additionalValues = '';
+		for(var i = 2; i < arguments.length; i++) {
+			additionalValues += (additionalValues ? ', ' : '') + arguments[i];
+		}
+		console.log("additional data about user: ", additionalValues);
+
+	}
+	printUserName("Sofi", "Petrova", 35, "+7-495-333-12-12", "Moscow", "Kadashevskaya nab");
+
+	window.echo = function () {
+		console.log.apply(this, arguments);
+	};
+	/*
+	function echo() {
+		//...
+	}
+	*/
+
+
+	function summy(a) {
+		var currentSum = a;
+		var parentArgs = arguments;
+
+		function f() {
+			currentSum += arguments[0];
+			return f;
+		}
+		f.toString = function() { return currentSum; }
+		return f;
+	}
+	echo('>> summy: ', summy(1)(2)(10)(15)(4)(100)(36)(19));
+	var cccc = {name: "name"}
+	// echo('>> function to string : ', cccc, summy, [1,2,3,4]);
+	var cnt = 1;
+
+	function requrstion(a, n) {
+		if(n <= 0 ) return 1;
+		echo(" >> requrstion this = ", this)
+		this.superVar = "FROM INSIDE requrstion ";
+		return a * requrstion(a, n-1);
+	}
+
+	var a = 5;
+	var b = 3;
+	echo("Возведение в степень: ", a, b, " = ", requrstion(a, b));
+	echo("superVar = ", window.superVar);
+	echo("superVar = ", superVar);
+
+
+	var studend = {
+		name: "Ilya",
+		course: 3,
+		mark: 5,
+	}
+
+	// function printStudent(friends, homeAddress) {
+	function printStudent() {
+		echo("СТУДЕНТ: ", this.name, this.course, this.mark);
+
+		var args = Array.prototype.slice.call(arguments);
+
+		echo("СТУДЕНТ: ", this.name, ' extra info: ', args.join(" - "));
+		// echo("СТУДЕНТ: ", this.name, ' extra info: ', arguments[0], arguments[1]);
+		// echo("СТУДЕНТ: ", window.studend.name, window.studend.course, window.studend.mark);
+		return true;
+	}
+
+	// printStudent();
+	echo(" NULL >> ");
+	printStudent.call(null, "Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string");
+	// var args = ["Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string"];
+
+	// printStudent.apply(studend, args);
+//*/
+	// var bindFunc = printStudent.bind(studend, "Семен, Геннадий", "ул. Ярцевская 4-6-148");
+
+	// echo("This is from bindFunc", bindFunc());
+
+
+	function makeFlat() {
+		// echo('someMy', this); 
+		let res = [];
+		this.forEach((item)=>{
+			if(Array.isArray(item)) {
+				res = res.concat(item.makeFlat())
+			} else {
+				res.push(item);
+			}
+		});
+		return res;
+	}
+
+	Array.prototype.makeFlat = makeFlat;
+
+	const ms = [1,2,3, [4,5, [6,7], 8], 9, 10];
+	console.log('ORIGINAL = ', ms);
+	console.log('RESULT = ', ms.makeFlat());
+
+
+	function calcFuctorial(n, maxTime) {
+		const startTime = Date.now();
+
+		function fn(num) {
+			if(!num) return 1;
+			const diff = Date.now() - startTime;
+			if (diff > maxTime) {
+				throw Error('Shit on me: it takes to long...');
+			}
+			return num * fn(num - 1);
+		}
+		console.log('startTime', startTime);
+
+		return fn(n);
+	}
+	// calcFuctorial(100000, 1);
+
+/*
+	try {
+		console.log('calcFuctorial ', calcFuctorial(100000, 1));
+	} catch (e) {
+		alert(e.message);
+	}
+*/
+
+	var city = {};
+	// name -
+	// age
+	// country
+	// population
+	city.name = "Moscow";
+	city.country = "Russia";
+	Object.defineProperty(city, "age", {
+		value: 880,
+		writable: true,
+		enumerable: true,
+	});
+
+	Object.defineProperty(city, "fullInfo", {
+		get: function() {
+			return "Информация по объекту: " + this.name + " " + this.country + " " + this.age;
+		},
+		set: function (val) {
+			this.age = val.age;
+			this.name = val.name;
+			this.country = val.country;
+
+		}
+	});
+
+	echo("> 1. city = ", city);
+	city.age = 50;
+	echo("> 2. city = ", city);
+	city.fullInfo = {
+		name: "Калининград",
+		age: 500,
+		country: "Russia",
+	};
+
+	echo("> 2. city Full INFO = ", city.age, city.fullInfo);
+
+
+
+
+
+	for(var key in city) {
+		echo("> 3. city, key = ", key, " value = ", city[key]);
+	}
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
