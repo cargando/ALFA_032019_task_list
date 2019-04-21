@@ -17,6 +17,8 @@ var STATE = {
 		taskUrgent: true,
 	}], // - список задач
 	formState: 'add', // [ add, edit, err ] - состояние формы - редактирование или добавление данных
+	editIndex: null, // индекс элемента массива задач для режима редактирования
+
 	isOpenedPopup: false, // true / false - флаг открыто / закрыто модальное окно
 	formData: { // данные формы
 		taskName: null, // название задачи
@@ -34,17 +36,29 @@ function collectDataFromForm() {
 
 }
 
-function clearForm() {
+function handleClearForm() {
 	document.getElementById('taskName').value = '';
 	document.getElementById('taskDescription').value = '';
 	document.getElementById('taskDate').value = '';
 	document.getElementById('taskUrgent').checked = false;
 	highlightFormField('taskName');
 	highlightFormField('taskDate');
+	updateFormText();
+}
+
+function handleClearAllTasks() {
+	STATE.taskList = [];
+	updateLocalStorage();
+	renderTaskList();
 }
 
 function pushDataToList() {
-	STATE.taskList.push(STATE.formData);
+
+	if (STATE.formState === "edit") {
+		STATE.taskList[(STATE.editIndex)] = STATE.formData;
+	} else {
+		STATE.taskList.push(STATE.formData);
+	}
 	STATE.formData = {
 		taskName: null,
 		taskDescription: null,
@@ -62,12 +76,17 @@ function handleAddTask() {
 		});
 		return false;
 	}
+
 	pushDataToList();
-	clearForm();
+	handleClearForm();
 	updateLocalStorage();
 	renderTaskList();
-	echo('handleAddTask: done, new STATE = ', STATE);
 
+	if (STATE.formState === "edit") {
+		STATE.editIndex = null;
+		STATE.formState = "add";
+		updateFormText();
+	}
 }
 
 function highlightFormField(id, tp, msg) {
@@ -135,10 +154,11 @@ function renderTaskList() {
 	// Вариант №2
 		strResult += '<li class="list-group-item">' +
 			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
-			item.taskName + '<br /><span class="text-muted"><small>' +
+			'<a href="#">' + item.taskName + '</a><br /><span class="text-muted"><small>' +
+			'<a href="#">' + item.taskName + '</a><br /><span class="text-muted"><small>' +
 			item.taskDate + '</small></span>' +
 			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
-			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit text-muted"></i></span>' +
+			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit"></i></span>' +
 		'</li>';
 
 		/*
@@ -155,14 +175,44 @@ function renderTaskList() {
 	})
 	var emprtyList = '<li class="list-group-item"><span class="text-secondary">Список задач пуст</span></li>';
 	listContainer.innerHTML = strResult || emprtyList;
+	if (strResult) {
+		document.getElementById('clrearListButton').style.display = "block";
+	} else {
+		document.getElementById('clrearListButton').style.display = "none";
+	}
 }
 
 function deleteNode(event) {
 	var node = event.target;
 	var index = node.parentNode.getAttribute("data-id");
-	STATE.taskList.splice(index, 1)
+	STATE.taskList.splice(index, 1);
 	updateLocalStorage();
 	renderTaskList();
+}
+
+function editNode(event) {
+	var node = event.target;
+	var index = node.parentNode.getAttribute("data-id");
+	STATE.formState = "edit";
+	STATE.editIndex = index;
+	updateFormText();
+
+	document.getElementById("taskName").value = STATE.taskList[index].taskName;
+	document.getElementById("taskDescription").value = STATE.taskList[index].taskDescription;
+	document.getElementById("taskDate").value = STATE.taskList[index].taskDate;
+	document.getElementById("taskUrgent").value = STATE.taskList[index].taskUrgent;
+}
+
+function updateFormText() {
+	if (STATE.formState === "edit") {
+		document.getElementById("formHeader").innerText = "Edit task";
+		document.getElementById("actionButton").innerText = "Save task";
+		document.getElementById("cancelButton").innerText = "Cancel";
+	} else {
+		document.getElementById("formHeader").innerText = "Add new task";
+		document.getElementById("actionButton").innerText = "Add task";
+		document.getElementById("cancelButton").innerText = "Clear form";
+	}
 }
 
 
@@ -181,5 +231,6 @@ function initPage() {
 		echo("Couldn't init JSON from Local Storage: ", e.message);
 	}
 	STATE.taskList = tmp || [];
+
 	renderTaskList();
 }

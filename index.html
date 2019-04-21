@@ -15,7 +15,7 @@
 		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body">
-					<h4>Add new task</h4>
+					<h4 id="formHeader">Add new task <span>Some text</span></h4>
 					<div class="form-group">
 						<label for="taskName">Task name <span class="text-danger">*</span></label>
 						<input class="form-control" id="taskName" placeholder="Enter task name">
@@ -38,7 +38,6 @@
 						<input type="checkbox" class="form-check-input" id="taskUrgent">
 						<label class="form-check-label" for="taskUrgent">
 							<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i>
-							<i class="fas fa-address-card"></i>
 							urgent
 						</label>
 					</div>
@@ -48,12 +47,14 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<button
+									id="actionButton"
 									onclick="handleAddTask();"
 									type="button" class="btn btn-primary">Add new task</button>
 						</div>
 						<div class="col-sm-6">
 							<button
-									onclick="clearForm()"
+									id="cancelButton"
+									onclick="handleClearForm()"
 									type="button" class="btn btn-secondary">Clear form</button>
 						</div>
 					</div>
@@ -73,7 +74,13 @@
 					<ul id="tasksList" class="list-group">
 
 					</ul> <!-- END of list-group -->
-
+					<br />
+					<button
+							style="display: none"
+							id="clrearListButton"
+							onclick="handleClearAllTasks()"
+							type="button" class="btn btn-outline-danger">Clear All Tasks
+					</button>
 				</div> <!-- END of CARD-BODY -->
 			</div> <!-- END of CARD -->
 		</div> <!-- END of col-md-6 -->
@@ -137,7 +144,28 @@
 	}
 
 	sayHellow(person, printName, printAge);
+	function sayHellowParent(name) {
+		sayHellow(name)
+	}
+	function sayHellow(name) {
+		throw new Error("Привет мир!");
+		// SyntaxError, ReferenceError, RangeError
+		echo("Hellow ", name);
+	}
+
+	try {
+		// setTimeout(sayHellow, 1000, "Sofi");
+		sayHellowParent("Sofi");
+	} catch (e) {
+		echo("Возникла ошибка ")
+		echo("Error name: ", e.name, bbbbb)
+		echo("Error message: ", e.message)
+		echo("Error stack ", e.stack)
+	}
+	// sayHellow("Sofi");
+	echo("End of code");
 */
+
 </script>
 
 </body>

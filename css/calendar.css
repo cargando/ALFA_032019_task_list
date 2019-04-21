@@ -151,3 +151,14 @@
 .edit_ico:hover {
 	cursor: pointer;
 }
+.edit_ico[disabled=true],.delete_ico[disabled=true] {
+	color: #CACACA !important;
+}
+.delete_ico[disabled=true]:hover {
+	color: #ECECEC !important;
+}
+
+.modal-backdrop.in {
+	opacity: 0.4 !important;
+	background-color: #616682 !important;
+}
