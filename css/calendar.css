@@ -143,3 +143,11 @@
 	color: #990000;
 	cursor: pointer;
 }
+.edit_ico {
+	position: absolute;
+	top: 15px;
+	right: 40px;
+}
+.edit_ico:hover {
+	cursor: pointer;
+}

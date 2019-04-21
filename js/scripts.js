@@ -64,6 +64,7 @@ function handleAddTask() {
 	}
 	pushDataToList();
 	clearForm();
+	updateLocalStorage();
 	renderTaskList();
 	echo('handleAddTask: done, new STATE = ', STATE);
 
@@ -134,6 +135,7 @@ function renderTaskList() {
 			item.taskName + '<br /><span class="text-muted"><small>' +
 			item.taskDate + '</small></span>' +
 			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
+			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit text-muted"></i></span>' +
 		'</li>';
 
 		/*
@@ -148,6 +150,23 @@ function renderTaskList() {
 
 
 	})
-	listContainer.innerHTML = strResult;
+	var emprtyList = '<li class="list-group-item"><span class="text-secondary">Список задач пуст</span></li>';
+	listContainer.innerHTML = strResult || emprtyList;
+}
 
+function updateLocalStorage() {
+	var tmp = JSON.stringify(STATE.taskList);
+	localStorage.setItem("TASKS", tmp);
+	return true;
+}
+
+function initPage() {
+	var tmp;
+	try {
+		tmp = JSON.parse(localStorage.getItem("TASKS"));
+	} catch (e) {
+		echo("Couldn't init JSON from Local Storage: ", e.message);
+	}
+	STATE.taskList = tmp || [];
+	renderTaskList();
 }
