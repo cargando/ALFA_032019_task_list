@@ -5,6 +5,7 @@
 	<title>Title</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/calendar.css">
 </head>
 <body>
 
@@ -37,6 +38,7 @@
 						<input type="checkbox" class="form-check-input" id="taskUrgent">
 						<label class="form-check-label" for="taskUrgent">
 							<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i>
+							<i class="fas fa-address-card"></i>
 							urgent
 						</label>
 					</div>
@@ -68,15 +70,8 @@
 				<div class="card-body">
 					<h3>List of tasks</h3>
 
-					<ul class="list-group">
-						<li class="list-group-item">Cras justo odio
-							<i class="fas fa-edit text-muted"></i>
-							<i class="fas fa-trash-alt text-muted"></i>
-						</li>
-						<li class="list-group-item">Dapibus ac facilisis in</li>
-						<li class="list-group-item">Morbi leo risus</li>
-						<li class="list-group-item">Porta ac consectetur ac</li>
-						<li class="list-group-item">Vestibulum at eros</li>
+					<ul id="tasksList" class="list-group">
+
 					</ul> <!-- END of list-group -->
 
 				</div> <!-- END of CARD-BODY -->
@@ -112,11 +107,35 @@
 </div>
 
 
-
+<!--i class="fas fa-edit text-muted"></--i>
+<i class="fas fa-trash-alt text-muted"></i-->
 
 <script src="/js/scripts.js"></script>
 
 <script>
+
+
+	renderTaskList();
+
+	var person = {
+		name: "Sofi",
+		age: 30,
+		address: "Kadashevskaya nab 40",
+	}
+	function printName(obj) {
+			return obj.name;
+	}
+	function printAge(obj) {
+		return obj.age;
+	}
+
+	function sayHellow(obj, printNameCallback, printAgeCallback) {
+		echo("person: ", printNameCallback(obj), "(", printAgeCallback(obj), ")");
+		echo("says HELLOW");
+
+	}
+
+	sayHellow(person, printName, printAge);
 
 </script>
 

@@ -5,7 +5,17 @@ window.echo = function () {
 var DANGER = 'danger';
 
 var STATE = {
-	taskList: [], // - список задач
+	taskList: [{
+		taskName: " название задачи #1",
+		taskDescription: "null, // описание",
+		taskDate: "25.02.2019",
+		taskUrgent: false,
+	}, {
+		taskName: "название задачи @2",
+		taskDescription: "описание",
+		taskDate: "14.05.2019",
+		taskUrgent: true,
+	}], // - список задач
 	formState: 'add', // [ add, edit, err ] - состояние формы - редактирование или добавление данных
 	isOpenedPopup: false, // true / false - флаг открыто / закрыто модальное окно
 	formData: { // данные формы
@@ -54,6 +64,7 @@ function handleAddTask() {
 	}
 	pushDataToList();
 	clearForm();
+	renderTaskList();
 	echo('handleAddTask: done, new STATE = ', STATE);
 
 }
@@ -97,4 +108,46 @@ function validateDateFromForm() {
 		retVal.push('taskDate');
 	}
 	return retVal;
+}
+// TASKS FUNCTIONS //////////
+function renderTaskList() {
+	var listContainer = document.getElementById('tasksList');
+	listContainer.innerHTML = '';
+	var strResult = '';
+	STATE.taskList.forEach(function (item, index){
+/* Вариант №1
+		var newElement = document.createElement('li');
+
+		newElement.innerHTML = (item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
+			item.taskName + '<br /><span class="text-muted"><small>' +
+			item.taskDate + '</small></span>' +
+			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>';
+
+		newElement.classList.add('list-group-item');
+		listContainer.appendChild(newElement);
+
+
+		 */
+	// Вариант №2
+		strResult += '<li class="list-group-item">' +
+			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
+			item.taskName + '<br /><span class="text-muted"><small>' +
+			item.taskDate + '</small></span>' +
+			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
+		'</li>';
+
+		/*
+		taskName: null,
+		taskDescription: null,
+		taskDate: null,
+		taskUrgent: false,
+		*/
+		// ....
+		// 1) listContainer.innerHTML += '<li>......'; - если через строку
+		// 2) listContainer.appendChild(newElement) - если через createElement
+
+
+	})
+	listContainer.innerHTML = strResult;
+
 }
