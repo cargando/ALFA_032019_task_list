@@ -110,6 +110,9 @@ function validateDateFromForm() {
 	}
 	return retVal;
 }
+
+
+
 // TASKS FUNCTIONS //////////
 function renderTaskList() {
 	var listContainer = document.getElementById('tasksList');
@@ -154,6 +157,16 @@ function renderTaskList() {
 	listContainer.innerHTML = strResult || emprtyList;
 }
 
+function deleteNode(event) {
+	var node = event.target;
+	var index = node.parentNode.getAttribute("data-id");
+	STATE.taskList.splice(index, 1)
+	updateLocalStorage();
+	renderTaskList();
+}
+
+
+///////// LOCAL STORAGE
 function updateLocalStorage() {
 	var tmp = JSON.stringify(STATE.taskList);
 	localStorage.setItem("TASKS", tmp);
