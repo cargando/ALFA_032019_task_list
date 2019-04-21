@@ -155,7 +155,6 @@ function renderTaskList() {
 		strResult += '<li class="list-group-item">' +
 			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
 			'<a href="#">' + item.taskName + '</a><br /><span class="text-muted"><small>' +
-			'<a href="#">' + item.taskName + '</a><br /><span class="text-muted"><small>' +
 			item.taskDate + '</small></span>' +
 			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
 			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit"></i></span>' +
