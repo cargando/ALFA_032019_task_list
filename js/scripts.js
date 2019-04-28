@@ -154,7 +154,7 @@ function renderTaskList() {
 	// Вариант №2
 		strResult += '<li class="list-group-item">' +
 			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
-			'<a href="#">' + item.taskName + '</a><br /><span class="text-muted"><small>' +
+			'<a href="#" onclick="viewTask(event)" data-id="' + index + '" >' + item.taskName + '</a><br /><span class="text-muted"><small>' +
 			item.taskDate + '</small></span>' +
 			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
 			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit"></i></span>' +
@@ -214,6 +214,29 @@ function updateFormText() {
 	}
 }
 
+function viewTask(e) {
+	e.preventDefault();
+	var index = e.target.getAttribute("data-id");
+	var modal = document.getElementById("modal1");
+	modal.style.display = "block";
+	var modalContent = document.getElementById("modalContent");
+	modalContent.innerHTML =
+		'<small class="text-muted">task name</small><br>' +
+		STATE.taskList[index].taskName +
+		'<br><small class="text-muted">task date</small><br>' +
+		STATE.taskList[index].taskDate +
+		'<br><small class="text-muted">task description</small><br>' +
+		STATE.taskList[index].taskDescription +
+		'<br><small class="text-muted">urgent</small><br>' +
+		(STATE.taskList[index].taskUrgent ? 'Важно' : "Обычная задача");// */
+	echo(modalContent.innerHTML)
+}
+
+function handleCloseModal(e) {
+	var modal = document.getElementById("modal1");
+	modal.style.display = "none";
+
+}
 
 ///////// LOCAL STORAGE
 function updateLocalStorage() {

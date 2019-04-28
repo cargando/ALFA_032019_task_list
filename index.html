@@ -93,25 +93,56 @@
 
 
 
-<div class="modal" tabindex="-1" role="dialog" style="display: none">
+<div id="modal1" class="modal" tabindex="-1" role="dialog" style="display: none">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<h5 class="modal-title">Просмотр задачи</h5>
+				<button  onclick="handleCloseModal(event)" type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<p>Modal body text goes here.</p>
+			<div id="modalContent" class="modal-body">
+
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button onclick="handleCloseModal(event)" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<!--button type="button" class="btn btn-primary">Save changes</button-->
 			</div>
 		</div>
 	</div>
 </div>
+
+<div id="calendar" class="micalendar" style="display:none">
+	<div class="header_wrap">
+		<div class="header">
+			<p id="monthHeader">Month name</p>
+		</div>
+		<div class="arrows">
+			<div id="prevButton" class="arrows_left"><i class="fa fa-angle-left"></i></div>
+			<div id="nextButton" class="arrows_right"><i class="fa fa-angle-right"></i></div>
+		</div> <!-- END OF arrows -->
+	</div>
+	<table id="calendar_table">
+		<thead>
+		<tr>
+			<th>Пн</th>
+			<th>Вт</th>
+			<th>Ср</th>
+			<th>Чт</th>
+			<th>Пт</th>
+			<th>Сб</th>
+			<th>Вс</th>
+		</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<hr><div class="btn-group">
+	<input type="button" onclick="hideCalendar(event)" value="Отмена" class="btn btn-sm btn-outline-secondary">
+</div>
+</div> <!-- END OF CALENDAR -->
+
 
 
 <!--i class="fas fa-edit text-muted"></--i>
