@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+<h1>Classes & ES 6</h1>
+
+
+<script src="/js/scripts.js"></script>
+<script>
+
+	class ClassBasedPerson {
+
+		constructor(name, age, hobby) {
+			this.name = name;
+			this.age = age;
+			this.hobby = hobby;
+		}
+
+		sayHello() {
+			echo(this.name, "say's HELLO!!!");
+		}
+
+	}
+
+	var user1 = new ClassBasedPerson('Maria', 30, ['ski', 'painting', 'dogs']);
+
+	var user2 = new ClassBasedPerson('Sofi', 25, ['snowboarding']);
+
+	user1.sayHello();
+	user2.sayHello();
+
+	function FunctionBasedPerson(name, age, hobby) {
+		this.name = name;
+		this.age = age;
+		this.hobby = hobby;
+		this.getAge = () => {
+			return this.age;
+		}
+	}
+
+	FunctionBasedPerson.prototype.sayHello = function() {
+		echo(this.name, "(age: ", this.age, "), say's HELLO!!!");
+	};
+
+	var user3 = new FunctionBasedPerson('Eugen', 33, ['dogs']);
+	echo("user3.getAge: ", user3.getAge());
+	var user4 = new FunctionBasedPerson('Eleonora', 28, ['cosmic']);
+
+	user3.sayHello();
+	user4.sayHello();
+
+	echo("Класс ", user1);
+	echo("Функция ", user3);
+
+	class Student extends ClassBasedPerson {
+		static calcAverageRank(val) {
+			let sum = 0;
+			val.forEach((item) => {
+				sum += item;
+			});
+			return sum / val.length;
+		}
+
+		get fullInfo() {
+			return this.name + ", " + this.age  + ", средний бал " + this.averageRank;
+		}
+		set fullInfo(a) {
+			const tmp = a.split(",")
+			this.name = tmp[0];
+			this.age = tmp[1];
+			this.averageRank = tmp[2];
+		}
+
+		constructor(name, age, hobby, averageRank) {
+			super(name, age, hobby);
+			this.averageRank = averageRank;
+
+		}
+
+		sayHello() {
+			super.sayHello();
+			echo("I'm: ", this.name, ", age: ", this.age, ", I'm student and I like ", this.hobby);
+		}
+	}
+
+	var student1 = new Student("Mikki", 20, ["dancing", "skiing", "disco"], 5);
+	var student2 = new Student("Mikki", 20, ["dancing", "skiing", "disco"], 5);
+
+
+
+
+	echo("Класс Student", student1);
+	echo("У студента Васи средний балл: ", Student.calcAverageRank([3,4,5,3,3,3,4,4,2]));
+
+	student2.fullInfo = "Евгений,25,4";
+	echo(student2.fullInfo)
+
+	student1.sayHello();
+
+
+	echo("var = ", test_var, ", let = ");
+
+	var test_var = 10;
+	let test_let;
+	const test_const = 100;
+	test_let = 55
+	test_let = test_let + 100;
+
+	echo("var = ", test_var, ", let = ", test_let);
+
+	if (test_let) {
+		const userName = "Vasya";
+		echo("user name inside IF ", userName);
+	}
+	// echo("user name inside IF ", userName);
+
+	const user100 = { name: "Sofi", age: 25 };
+	user100.name = "Andrue";
+	echo("user100 =  ", user100);
+	const ranks = [3,4,5,5,6];
+	ranks[2] = 2
+	ranks.push("aaa")
+	let tmpRanks = [1,2,3,4,5];
+	tmpRanks = {name: "Semen"};
+
+	echo("ranks =  ", ranks);
+	echo("tmpRanks =  ", tmpRanks);
+
+	/*
+	function print(val) {
+		setTimeout(function () {
+			echo(" i = ", val);
+		}, 20);
+	}
+
+	for(var i = 0; i < 10; i++) {
+		// print(i);
+		setTimeout(function () {
+			echo(" i = ", val);
+		}, 20)
+	}
+*/
+	function myTestFunc() {
+		for(var i = 0; i < arguments.length; i++) {
+			echo("Arguments: ", i, "= ",  arguments[i]);
+		}
+	}
+	myTestFunc(1,2,3,"Sofi", "Mary");
+
+	var arguments = [1,2,3, "sofi"]
+
+	const myArraowFunction = (a, b = 25, ...rest) => { // параметр по умолчанию
+		echo("Arrow arguments = ", rest)
+		return a + b;
+	}
+	myArraowFunction();
+	const myArraowFunctionSimple = a => {
+		return a + 100;
+	}
+
+	const myArraowFunctionSimple2 = a => a + 100;
+
+	const car = {
+		model: 'Fiesta',
+		manufacturer: 'Ford',
+		fullName: function() {
+			return `${this.manufacturer} ${this.model}`
+		}
+	}
+
+	const carArrow = {
+		model: 'Fiesta',
+		manufacturer: 'Ford',
+		factory: {
+			name: "FORD INC",
+		},
+		// age: 10,
+		fullName: () => {
+			return `${this.manufacturer} ${this.model}`
+		}
+	};
+
+	echo(car.fullName());
+	echo(carArrow.fullName());
+
+
+	echo("Параметр по умолчнию", myArraowFunction(100));
+
+	const str1 = "В двойных кавычках";
+	const str2 = "В одинарных \n кавычках";
+	echo(str2);
+
+	const age = 100;
+	const str3 = `В
+	тильде ${ age }, ${ car.fullName()}`;
+
+	const str4 = "В тильде #2" + age + ", " + car.fullName();
+	echo(str3);
+
+	const { model, manufacturer, age: carAge = 0 } = carArrow;
+	echo("Destructuring ", model, manufacturer, carAge);
+	const fruits = ["apple", "banana", "grape", "strawberry"];
+	const [uno, , , , , , tres = "brewberry"] = fruits;
+	echo("Destructuring Array: ", uno, tres);
+	const [apple, banana, grape] = fruits;
+
+	const refregerator = {
+		__proto__: car,
+		apple: apple,
+		banana,
+		grape,
+		getBanana: function () {
+			return this.banana;
+	 },
+		getGrape () {
+			return this.grape;
+		}
+	};
+	refregerator['insideTemp' + 1 ] = -14;
+	// refregerator.insideTemp1 = -14
+	echo("refregerator = ", refregerator)
+
+	if (1) {
+		//iterate over the value
+		for (const v of ['a', 'b', 'c']) {
+			console.log(v);
+		}
+//get the index as well, using `entries()`
+		for (const [i, v] of ['a', 'b', 'c'].entries()) {
+			console.log(i) //index
+			console.log(v) //value
+		}
+	}
+
+	const fruits2 = ["mango", ...fruits, "orange"];
+	const AR = {
+		someName: "Some name",
+		...carArrow,
+	}
+
+	echo("SPREAD Array: ", fruits2)
+	echo("SPREAD Object: ", AR);
+	// import package from 'module-name'
+
+	echo("Repeat: ", str1.repeat(5))
+
+	echo("Object.is = ", Object.is(carArrow, car));
+	const car3 = Object.assign({}, carArrow);
+	carArrow.factory.name = "VAZ"
+	echo("Object.assign = ", car3);
+	// Object.setPrototypeOf(child, parent)
+
+	myArraowFunction(1,2, "Al", "H", "Fe");
+
+	// const printUserName = ({fname, lname = "", age = null}) => {
+	const printUserName = (obj) => {
+		Object.keys(obj).forEach((item, index) =>{
+			echo("printUserName: Object.keys: ", item, index, obj[item]);
+		});
+		Object.values(obj).forEach((item, index) =>{
+			echo("printUserName: Object.values: ", item);
+		});
+
+	};
+	const superUser = {
+		fname: "Вася",
+		lname: "Петров",
+		age: 100,
+	};
+
+	printUserName(superUser);
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+<h1>Promises</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<h3>Movies: </h3>
+				<div class="card-body">
+					<ul id="mooviesList" class="list-group">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/js/scripts.js"></script>
+<script>
+	async function printMovies(data) {
+		const moovies = await data.json();
+		let res = '';
+		moovies.forEach((item, index) => {
+		res += '<li class="list-group-item">' +
+			item.show.name + ' <br>' +
+			item.show.premiered + ' <br>' +
+			'<img src="' + item.show.image.medium + ' ">' + item.show.name + ' <br>' +
+			item.show.summary + ' <br></li>';
+
+		});
+		// echo('res: ', res);
+		document.getElementById('mooviesList').innerHTML = res;
+		echo('printMovies: fetch SUCCESS: ', moovies);
+	}
+	function printError(data) {
+		echo('printError: fetch ERROR: ', data);
+	}
+
+	const movies = fetch('https://api.tvmaze.com/search/shows?q=batman');
+	movies.
+		then(printMovies).
+		then(()=>{echo("NEXT STEP after get request 1")}).
+		then(()=>{echo("NEXT STEP after get request 2")}).
+		then(()=>{echo("NEXT STEP after get request 3"); throw new Error("Shit on me 3...")}).
+		then(()=>{echo("NEXT STEP after get request 4")}).
+		catch(printError).
+		then(()=>{echo("NEXT STEP after get request 5");  throw new Error("Shit on me 5...") }).
+		then(()=>{echo("NEXT STEP after get request 6")}).
+		catch(printError);
+
+	echo('movies', movies);
+
+	echo(" hello 1 ");
+	setTimeout(echo, 	1000, " hello 2 ");
+	echo(" hello 3 ");
+
+	function promiseTimeOut() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				setTimeout(echo, 	2000, " hello 2.5 through the PROMISE ");
+				resolve();
+			});
+		});
+	}
+	echo("promiseTimeOut>> ", promiseTimeOut());
+	// const f1 = fetch();
+	// const f2 = fetch();
+	// var pall = Promise.all([f1, f2]);
+	// var pall = Promise.race([f1, f2]); // then сработает сразу после того как успешно сработает первый из промисов в массиве
+	// pall.then().catch();
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
