@@ -256,10 +256,37 @@ function initPage() {
 	STATE.taskList = tmp || [];
 
 	renderTaskList();
-	renderCalendar(STATE.calendarDate.getFullYear(), STATE.calendarDate.getMonth());
+	initCalendar();
 }
 
 //////////// CALENDAR
+function initCalendar() {
+	var calendarArrowLeft = document.getElementById('prevButton'); // получаем html элемент, который является дивом под иконкой стрелки "назад"
+	var calendarArrowRight = document.getElementById('nextButton');  // получаем html элемент, который является дивом под иконкой стрелки "вперед"
+
+	calendarArrowLeft.addEventListener('click', function(event) { // вешаем событие на html элемент
+		handleClickCalendarArrows(event);
+	});
+
+	calendarArrowRight.addEventListener('click', function(event){ // вешаем событие на html элемент
+		handleClickCalendarArrows(event);
+	});
+
+	document.body.addEventListener('click', function(event){
+		if (STATE.calendarVisibility && !closeCalendarHelper(event.target)) {
+			handleCloseCalendar(event);
+		}
+	});
+	renderCalendar(STATE.calendarDate.getFullYear(), STATE.calendarDate.getMonth());
+}
+
+// определяет нужно ли закрывать календарь по клику на документ
+function closeCalendarHelper(target){
+	if (target.closest('.micalendar')) {
+		return true;
+	}
+	return false;
+}
 
 function handleShowCalendar(e) {
 	if (STATE.calendarVisibility) {
@@ -269,11 +296,12 @@ function handleShowCalendar(e) {
 	var clickedIcon = e.target;
 	var coords = clickedIcon.closest('.input-group-prepend').getBoundingClientRect();
 	// e.target.parentElement.parentElement;
+	echo("coords", coords);
 	calendar.style.top = coords.bottom + "px";
 	calendar.style.left = coords.left + "px";
 	calendar.style.display = 'block';
 	STATE.calendarVisibility = true;
-	echo("handleShowCalendar>> ", coords);
+	e.stopPropagation();
 }
 
 function handleCloseCalendar(e) {
@@ -295,6 +323,7 @@ function renderCalendar(yearToOperate, monthToOperate) {
 	var dayCounter = 1;
 	var dayCounterAfter = 1;
 	var str_out_week = '';
+	var toMuchWeeksFlag = false;
 
 	while(j < 7) {
 		var str_out = '';
@@ -313,7 +342,7 @@ function renderCalendar(yearToOperate, monthToOperate) {
 					dataFullDate: (dayCounterAfter + '.' + (month === 11 ? 1 : month + 2) + '.' + (month == 11 ? yearToOperate + 1 : yearToOperate)),
 					dataDaymonth: dayCounterAfter++,
 				};
-
+				toMuchWeeksFlag = true;
 			} else { // ЯЧЕЙКИ для ТЕКУЩЕГО МЕСЯЦА
 				var todayClass = '';
 				var currrentDt = new Date();
@@ -331,6 +360,9 @@ function renderCalendar(yearToOperate, monthToOperate) {
 			str_out += renderOneCalendarCell(tmpCellObject);
 		}
 		str_out_week += '<tr>' + str_out + '</tr>';
+		if (toMuchWeeksFlag) {
+			break;
+		}
 		j++;
 	}
 
@@ -369,4 +401,23 @@ function getFirstDayOfMonth(yy, mm) {
 
 function getLastDay(yy, mm) {
 	return  new Date(yy, mm +1, 0).getDate();
+}
+
+function handleClickCalendarArrows(e) {
+	e.stopPropagation();
+	var target = event.target.closest('.arrows_left,.arrows_right');
+	var curMonth = STATE.calendarDate.getMonth(); // получаем номер месяца: который отображается в календаре
+	var curYear = STATE.calendarDate.getFullYear(); // получаем год: который отображается в календаре
+	var classes = target.classList;
+	var monthForSate = 0;
+	var yearForState = curYear;
+	if (classes[0] == 'arrows_right') { // если нажали кнопку следующий месяц
+		monthForSate = curMonth === 11 ? 0 : curMonth + 1; // если месяц декабрь, тогда должны месяц скинуть на январь
+		yearForState = curMonth === 11 ? yearForState + 1 : yearForState; // если месяц декабрь, тогда год увеличиваем на 1
+	} else {
+		monthForSate = curMonth === 0 ? 11 : curMonth - 1; // если месяц январь, тогда должны месяц скинуть на декабрь
+		yearForState = curMonth === 0 ? yearForState - 1 : yearForState; // если месяц январь, тогда должны год уменьшить
+	}
+	renderCalendar(yearForState, monthForSate);
+	STATE.calendarDate = new Date(yearForState, monthForSate);
 }
