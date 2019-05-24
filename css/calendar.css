@@ -161,3 +161,7 @@
 	opacity: 0.4 !important;
 	background-color: #616682 !important;
 }
+
+.card-body-dnd {
+	background-color: #EAEAEA;
+}

@@ -5,7 +5,7 @@ window.echo = function () {
 var DANGER = 'danger';
 
 var STATE = {
-	taskList: [{
+	taskList: [/*{
 		taskName: " название задачи #1",
 		taskDescription: "null, // описание",
 		taskDate: "25.02.2019",
@@ -15,7 +15,7 @@ var STATE = {
 		taskDescription: "описание",
 		taskDate: "14.05.2019",
 		taskUrgent: true,
-	}], // - список задач
+	}*/], // - список задач
 	formState: 'add', // [ add, edit, err ] - состояние формы - редактирование или добавление данных
 	editIndex: null, // индекс элемента массива задач для режима редактирования
 	calendarVisibility: false, // каледарь отображен/скрыт
@@ -134,7 +134,25 @@ function validateDateFromForm() {
 
 
 // TASKS FUNCTIONS //////////
-function renderTaskList() {
+function printDnDCards(status) {
+	var result = '';
+
+	STATE.taskList.forEach(function (item, index) {
+		var localStatus = !item.status ? "todo" : item.status;
+		if (localStatus !== status) {
+			return false;
+		}
+		result += '<li class="list-group-item" draggable="true">' +
+			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
+			'<a href="#" onclick="viewTask(event)" data-id="' + index + '" >' + item.taskName + '</a><br /><span class="text-muted"><small>' +
+			item.taskDate + '</small></span>' +
+			'</li>';
+	});
+	return result;
+}
+
+
+function renderTaskList(outpuMode = 'homeTab') {
 	var listContainer = document.getElementById('tasksList');
 	listContainer.innerHTML = '';
 	var strResult = '';
@@ -153,12 +171,16 @@ function renderTaskList() {
 
 		 */
 	// Вариант №2
-		strResult += '<li class="list-group-item">' +
+		var editIcons = (outpuMode === 'homeTab') ?
+			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
+			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit"></i></span>'
+			: '';
+
+			strResult += '<li class="list-group-item">' +
 			(item.taskUrgent ? '<i class="text-danger fa fa-exclamation-triangle"></i> &nbsp ' : '') +
 			'<a href="#" onclick="viewTask(event)" data-id="' + index + '" >' + item.taskName + '</a><br /><span class="text-muted"><small>' +
 			item.taskDate + '</small></span>' +
-			'<span data-id="' + index + '" class="delete_ico" onclick="deleteNode(event)"><i class="fa fa-times"></i></span>' +
-			'<span data-id="' + index + '" class="edit_ico" onclick="editNode(event)"><i class="fas fa-edit"></i></span>' +
+				editIcons +
 		'</li>';
 
 		/*
@@ -170,8 +192,6 @@ function renderTaskList() {
 		// ....
 		// 1) listContainer.innerHTML += '<li>......'; - если через строку
 		// 2) listContainer.appendChild(newElement) - если через createElement
-
-
 	})
 	var emprtyList = '<li class="list-group-item"><span class="text-secondary">Список задач пуст</span></li>';
 	listContainer.innerHTML = strResult || emprtyList;
@@ -181,6 +201,7 @@ function renderTaskList() {
 		document.getElementById('clrearListButton').style.display = "none";
 	}
 }
+
 
 function deleteNode(event) {
 	var node = event.target;
@@ -230,7 +251,7 @@ function viewTask(e) {
 		STATE.taskList[index].taskDescription +
 		'<br><small class="text-muted">urgent</small><br>' +
 		(STATE.taskList[index].taskUrgent ? 'Важно' : "Обычная задача");// */
-	echo(modalContent.innerHTML)
+	// echo(modalContent.innerHTML)
 }
 
 function handleCloseModal(e) {
@@ -257,6 +278,18 @@ function initPage() {
 
 	renderTaskList();
 	initCalendar();
+	renderDnnColums();
+}
+
+function renderDnnColums() {
+	var todoListContainer = document.getElementById("todoList");
+	var progressListContainer = document.getElementById("inprogressList");
+	var doneListContainer = document.getElementById("doneList");
+
+	todoListContainer.innerHTML = printDnDCards("todo");
+	progressListContainer.innerHTML = printDnDCards("inProgress");
+	doneListContainer.innerHTML = printDnDCards("done");
+
 }
 
 //////////// CALENDAR
@@ -264,15 +297,11 @@ function initCalendar() {
 	var calendarArrowLeft = document.getElementById('prevButton'); // получаем html элемент, который является дивом под иконкой стрелки "назад"
 	var calendarArrowRight = document.getElementById('nextButton');  // получаем html элемент, который является дивом под иконкой стрелки "вперед"
 
-	calendarArrowLeft.addEventListener('click', function(event) { // вешаем событие на html элемент
-		handleClickCalendarArrows(event);
-	});
+	calendarArrowLeft.addEventListener('click', handleClickCalendarArrows);
 
-	calendarArrowRight.addEventListener('click', function(event){ // вешаем событие на html элемент
-		handleClickCalendarArrows(event);
-	});
+	calendarArrowRight.addEventListener('click', handleClickCalendarArrows);
 
-	document.body.addEventListener('click', function(event){
+	document.body.addEventListener('click', function(event) {
 		if (STATE.calendarVisibility && !closeCalendarHelper(event.target)) {
 			handleCloseCalendar(event);
 		}
@@ -405,7 +434,8 @@ function getLastDay(yy, mm) {
 
 function handleClickCalendarArrows(e) {
 	e.stopPropagation();
-	var target = event.target.closest('.arrows_left,.arrows_right');
+	echo(event)
+	var target = e.target.closest('.arrows_left,.arrows_right');
 	var curMonth = STATE.calendarDate.getMonth(); // получаем номер месяца: который отображается в календаре
 	var curYear = STATE.calendarDate.getFullYear(); // получаем год: который отображается в календаре
 	var classes = target.classList;
@@ -420,4 +450,28 @@ function handleClickCalendarArrows(e) {
 	}
 	renderCalendar(yearForState, monthForSate);
 	STATE.calendarDate = new Date(yearForState, monthForSate);
+}
+
+function handleSwitchTab(e) {
+	e.stopPropagation();
+	var id = e.target.getAttribute('id');
+
+	var homeTab = document.getElementById('home-tab');
+	var dndTab = document.getElementById('dnd-tab');
+
+	var homeHref = document.getElementById('nav-home-tab');
+	var dndHref = document.getElementById('nav-dnd-tab');
+
+	if (id.includes('home')) {  // clicked TAB HOME
+		dndTab.style.display = 'none';
+		homeTab.style.display = 'block';
+	} else {
+		// clicked TAB DND
+		homeTab.style.display = 'none';
+		dndTab.style.display = 'block';
+		renderDnnColums();
+	}
+	dndHref.classList.toggle('active');
+	homeHref.classList.toggle('active');
+
 }

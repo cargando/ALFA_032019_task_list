@@ -258,7 +258,7 @@
 	console.log('externalSum = ', externalSum);
 
 */
-
+/*
 	var name = "Peter";
 
 	function Person(name, age) {
@@ -305,7 +305,7 @@
 		} else {
 			txt = text;
 		} */
-
+/*
 		console.log(txt);
 	}
 
@@ -319,7 +319,7 @@
 		defaultText: "Нечего сказать",
 		clear: function(){ console.clear(); }
 	}
-	*/
+
 	sayHellow.clear();
 	sayHellow("Привет мир!");
 	sayHellow();
@@ -346,154 +346,391 @@
 	*/
 
 
-	function summy(a) {
-		var currentSum = a;
-		var parentArgs = arguments;
+//
+//
+// 	function summy(a) {
+// 		var currentSum = a;
+// 		var parentArgs = arguments;
+//
+// 		function f() {
+// 			currentSum += arguments[0];
+// 			return f;
+// 		}
+// 		f.toString = function() { return currentSum; }
+// 		return f;
+// 	}
+// 	echo('>> summy: ', summy(1)(2)(10)(15)(4)(100)(36)(19));
+// 	var cccc = {name: "name"}
+// 	// echo('>> function to string : ', cccc, summy, [1,2,3,4]);
+// 	var cnt = 1;
+//
+// 	function requrstion(a, n) {
+// 		if(n <= 0 ) return 1;
+// 		echo(" >> requrstion this = ", this)
+// 		this.superVar = "FROM INSIDE requrstion ";
+// 		return a * requrstion(a, n-1);
+// 	}
+//
+// 	var a = 5;
+// 	var b = 3;
+// 	echo("Возведение в степень: ", a, b, " = ", requrstion(a, b));
+// 	echo("superVar = ", window.superVar);
+// 	echo("superVar = ", superVar);
+//
+//
+// 	var studend = {
+// 		name: "Ilya",
+// 		course: 3,
+// 		mark: 5,
+// 	}
+//
+// 	// function printStudent(friends, homeAddress) {
+// 	function printStudent() {
+// 		echo("СТУДЕНТ: ", this.name, this.course, this.mark);
+//
+// 		var args = Array.prototype.slice.call(arguments);
+//
+// 		echo("СТУДЕНТ: ", this.name, ' extra info: ', args.join(" - "));
+// 		// echo("СТУДЕНТ: ", this.name, ' extra info: ', arguments[0], arguments[1]);
+// 		// echo("СТУДЕНТ: ", window.studend.name, window.studend.course, window.studend.mark);
+// 		return true;
+// 	}
+//
+// 	// printStudent();
+// 	echo(" NULL >> ");
+// 	printStudent.call(null, "Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string");
+// 	// var args = ["Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string"];
+//
+// 	// printStudent.apply(studend, args);
+// //*/
+// 	// var bindFunc = printStudent.bind(studend, "Семен, Геннадий", "ул. Ярцевская 4-6-148");
+//
+// 	// echo("This is from bindFunc", bindFunc());
+//
+//
+// 	function makeFlat() {
+// 		// echo('someMy', this); 
+// 		let res = [];
+// 		this.forEach((item)=>{
+// 			if(Array.isArray(item)) {
+// 				res = res.concat(item.makeFlat())
+// 			} else {
+// 				res.push(item);
+// 			}
+// 		});
+// 		return res;
+// 	}
+//
+// 	Array.prototype.makeFlat = makeFlat;
+//
+// 	const ms = [1,2,3, [4,5, [6,7], 8], 9, 10];
+// 	console.log('ORIGINAL = ', ms);
+// 	console.log('RESULT = ', ms.makeFlat());
+//
+//
+// 	function calcFuctorial(n, maxTime) {
+// 		const startTime = Date.now();
+//
+// 		function fn(num) {
+// 			if(!num) return 1;
+// 			const diff = Date.now() - startTime;
+// 			if (diff > maxTime) {
+// 				throw Error('Shit on me: it takes to long...');
+// 			}
+// 			return num * fn(num - 1);
+// 		}
+// 		console.log('startTime', startTime);
+//
+// 		return fn(n);
+// 	} */
+// 	// calcFuctorial(100000, 1);
+//
+// /*
+// 	try {
+// 		console.log('calcFuctorial ', calcFuctorial(100000, 1));
+// 	} catch (e) {
+// 		alert(e.message);
+// 	}
+// */
+// /*
+// 	var city = {};
+// 	// name -
+// 	// age
+// 	// country
+// 	// population
+// 	city.name = "Moscow";
+// 	city.country = "Russia";
+// 	Object.defineProperty(city, "age", {
+// 		value: 880,
+// 		writable: true,
+// 		enumerable: true,
+// 	});
+//
+// 	Object.defineProperty(city, "fullInfo", {
+// 		get: function() {
+// 			return "Информация по объекту: " + this.name + " " + this.country + " " + this.age;
+// 		},
+// 		set: function (val) {
+// 			this.age = val.age;
+// 			this.name = val.name;
+// 			this.country = val.country;
+//
+// 		}
+// 	});
+//
+// 	echo("> 1. city = ", city);
+// 	city.age = 50;
+// 	echo("> 2. city = ", city);
+// 	city.fullInfo = {
+// 		name: "Калининград",
+// 		age: 500,
+// 		country: "Russia",
+// 	};
+//
+// 	echo("> 2. city Full INFO = ", city.age, city.fullInfo);
+//
+//
+//
+//
+//
+// 	for(var key in city) {
+// 		echo("> 3. city, key = ", key, " value = ", city[key]);
+// 	}
+// 	var a1 = "homeStreet";
+// 	var user10 = {
+// 		name: "Вася",
+// 		age: 30,
+// 		[a1]: () => { null; }
+// 	};
+//
+// 	var worker = {
+// 		fabricName: "Красная звезда",
+// 		address: "Кадашевская набережная 100500",
+// 		__proto__: user10,
+// 	};
+//
+// 	for(var key in worker) {
+// 		if (worker.hasOwnProperty(key)) {
+// 			echo("key = ", key );
+// 		}
+// 	}
+//
+// 	const mySymbol = Symbol();
+// 	const mySymbol2 = Symbol("ggggg");
+// 	const mySymbol3 = Symbol("ggggg");
+//
+// 	echo("type mySymbol = ", typeof mySymbol);
+// 	echo("compare = ", mySymbol3 === mySymbol2);
+//
+// 	const gSymbol1 = Symbol.for("Moscow");
+// 	const gSymbol2 = Symbol.for("Moscow");
+// 	echo("compare GS = ", gSymbol2 === gSymbol1);
+//
+// 	echo("gSymbol2> is it global: ", Symbol.keyFor(gSymbol2))
+// 	echo("mySymbol2> is it global: ", Symbol.keyFor(mySymbol2))
+//
+// 	let myArray = [1,2,3,4,5,6,7,8,9,10];
+//
+// 	for (let val of myArray) {
+// 		echo("val = ", val );
+// 	}
+//
+// 	const myObj1 = {
+// 		start: 0,
+// 		end: 20,
+// 	}
+//
+// 	myObj1[Symbol.iterator] = function () {
+// 		let current = this.start;
+// 		let end = this.end;
+//
+// 		return {
+// 			next() {
+// 				if (current < end) {
+// 					return {
+// 						done: false,
+// 						value: current += 2,
+// 					};
+// 				} else {
+// 					return {
+// 						done: true,
+// 					};
+// 				}
+// 			}
+// 		};
+// 	}
+//
+// 	for (let val of myObj1) {
+// 		echo("myObj1 = val = ", val );
+// 	}
+//
+// 	function* goToRestaruant () {
+// 		yield "Подождать оф";
+// 		yield "Выберите блюда из меню";
+// 		yield "Заказать";
+// 		yield "Съесть";
+// 	}
+//
+// 	const myGenerator = goToRestaruant();
+// 	echo("myGenerator 1 = ", JSON.stringify(myGenerator.next()));
+// 	echo("myGenerator 2 = ", myGenerator.next());
+// 	echo("myGenerator 3 = ", myGenerator.next());
+// 	echo("myGenerator 4 = ", myGenerator.next());
+// 	echo("myGenerator 5 = ", myGenerator.next());
+//
+//
+//
+// 	*/
 
-		function f() {
-			currentSum += arguments[0];
-			return f;
-		}
-		f.toString = function() { return currentSum; }
-		return f;
-	}
-	echo('>> summy: ', summy(1)(2)(10)(15)(4)(100)(36)(19));
-	var cccc = {name: "name"}
-	// echo('>> function to string : ', cccc, summy, [1,2,3,4]);
-	var cnt = 1;
+	// var a = 0;
+	// let b = 10;
+	// (function() {
+	// 	console.log(a); //
+	// 	console.log(foo()); //
+	// 	console.log(b); //
+	//
+	// 	var a = 1;
+	// 	let b = 11;
+	// 	function foo() {
+	// 		return 2;
+	// 	}
+	// })();
 
-	function requrstion(a, n) {
-		if(n <= 0 ) return 1;
-		echo(" >> requrstion this = ", this)
-		this.superVar = "FROM INSIDE requrstion ";
-		return a * requrstion(a, n-1);
-	}
+	// let a = [];
+	// let b = [1, 2, 3];
+	// let c = [4, 5, 6];
+	//
+	// a.push.apply(b, c);
+	// console.log(a); //
+	// console.log(b); //
+	// console.log(c); //
+	//
 
-	var a = 5;
-	var b = 3;
-	echo("Возведение в степень: ", a, b, " = ", requrstion(a, b));
-	echo("superVar = ", window.superVar);
-	echo("superVar = ", superVar);
+	// for (var A = 0; A < 2; A++) {
+	// 	let B = A;
+	// 	const C = B;
+	// 	setTimeout(function() {
+	// 		console.log('A: ' + A); //
+	// 		console.log('B: ' + B); //
+	// 		console.log('C: ' + C); //
+	// 		console.log('');
+	// 	}, 1);
+	// }
 
+	// let num = 10,
+	// 	obj1 = {
+	// 		value: "first value"
+	// 	},
+	// 	obj2 = {
+	// 		value: "second value"
+	// 	};
+	// const obj3 = obj2;
+	//
+	// ((num, obj1, obj2) => {
+	// 	num = num * 10;
+	// 	obj1 = obj2;
+	// 	obj2.value = "new value";
+	// })(num, obj1, obj2);
+	//
+	// console.log(num); //
+	// console.log(obj1.value); //
+	// console.log(obj2.value); //
+	// console.log(obj3.value); //
 
-	var studend = {
-		name: "Ilya",
-		course: 3,
-		mark: 5,
-	}
+	// window.fullname = 'Вася Иванов';
+	// let obj = {
+	// 	fullname: 'Коля Петров',
+	// 	prop: {
+	// 		fullname: 'Иван Серов',
+	// 		getFullname: function() {
+	// 			return this.fullname;
+	// 		}
+	// 	}
+	// };
+	//
+	// let func = obj.prop.getFullname;
+	// console.log(func()); //
+	// console.log(obj.prop.getFullname()); //
+	// console.log(obj.prop.getFullname.bind(obj)()); //
 
-	// function printStudent(friends, homeAddress) {
-	function printStudent() {
-		echo("СТУДЕНТ: ", this.name, this.course, this.mark);
-
-		var args = Array.prototype.slice.call(arguments);
-
-		echo("СТУДЕНТ: ", this.name, ' extra info: ', args.join(" - "));
-		// echo("СТУДЕНТ: ", this.name, ' extra info: ', arguments[0], arguments[1]);
-		// echo("СТУДЕНТ: ", window.studend.name, window.studend.course, window.studend.mark);
-		return true;
-	}
-
-	// printStudent();
-	echo(" NULL >> ");
-	printStudent.call(null, "Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string");
-	// var args = ["Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string"];
-
-	// printStudent.apply(studend, args);
-//*/
-	// var bindFunc = printStudent.bind(studend, "Семен, Геннадий", "ул. Ярцевская 4-6-148");
-
-	// echo("This is from bindFunc", bindFunc());
-
-
-	function makeFlat() {
-		// echo('someMy', this); 
-		let res = [];
-		this.forEach((item)=>{
-			if(Array.isArray(item)) {
-				res = res.concat(item.makeFlat())
-			} else {
-				res.push(item);
-			}
-		});
-		return res;
-	}
-
-	Array.prototype.makeFlat = makeFlat;
-
-	const ms = [1,2,3, [4,5, [6,7], 8], 9, 10];
-	console.log('ORIGINAL = ', ms);
-	console.log('RESULT = ', ms.makeFlat());
-
-
-	function calcFuctorial(n, maxTime) {
-		const startTime = Date.now();
-
-		function fn(num) {
-			if(!num) return 1;
-			const diff = Date.now() - startTime;
-			if (diff > maxTime) {
-				throw Error('Shit on me: it takes to long...');
-			}
-			return num * fn(num - 1);
-		}
-		console.log('startTime', startTime);
-
-		return fn(n);
-	}
-	// calcFuctorial(100000, 1);
-
-/*
-	try {
-		console.log('calcFuctorial ', calcFuctorial(100000, 1));
-	} catch (e) {
-		alert(e.message);
-	}
-*/
-
-	var city = {};
-	// name -
-	// age
-	// country
-	// population
-	city.name = "Moscow";
-	city.country = "Russia";
-	Object.defineProperty(city, "age", {
-		value: 880,
-		writable: true,
-		enumerable: true,
-	});
-
-	Object.defineProperty(city, "fullInfo", {
-		get: function() {
-			return "Информация по объекту: " + this.name + " " + this.country + " " + this.age;
-		},
-		set: function (val) {
-			this.age = val.age;
-			this.name = val.name;
-			this.country = val.country;
-
-		}
-	});
-
-	echo("> 1. city = ", city);
-	city.age = 50;
-	echo("> 2. city = ", city);
-	city.fullInfo = {
-		name: "Калининград",
-		age: 500,
-		country: "Russia",
-	};
-
-	echo("> 2. city Full INFO = ", city.age, city.fullInfo);
+	// var x, { x: y = 1 } = { x }; y;
+ // echo("x=", x, ", y", y)
 
 
+	// var y = 5;
+	// var x = function(){
+	// 	return y;
+	// };
+	//
+	// var z = function(t){
+	// 	var y = 10;
+	// 	return t();
+	// };
+	// echo(z(x));
+
+	// echo(((function (x, f = () => { return x; } ){
+	// 	var x;
+	// 	var y = x;
+	// 	x = 2;
+	// 	echo('inside ', f());
+	// 	return [x, y, f() ];
+	// })(1)))
 
 
+	// const x = 10, y = {a: 10};
+	//
+	// function f(x, y) {
+	// 	x = 20;
+	// 	y.a = 20;
+	// }
+	// f (x, y);
+	// console.log(x, y.a);
 
-	for(var key in city) {
-		echo("> 3. city, key = ", key, " value = ", city[key]);
-	}
+
+	// function test() {
+	// 	console.log(a);
+	// 	console.log(foo());
+	// 	var a = 1;
+	// 	function foo() {
+	// 		return 2;
+	// 	}
+	// }
+	// test();
+
+	// (function() {
+	// 	var a = b = 5;
+	// 	// window.b = 5
+	// })();
+	//
+	// console.log(b);
+
+
+	//console.log(a);
+	// console.log(b);
+	// let a = 1;
+	// var b = 2;
+	//
+	// {
+	// 	let d = 4;
+	// }
+	//
+	// console.log(d);
+
+	// var a = {}
+	// echo( "res = ", 1 + a === 5) 
+	// // alert("ob = " + {})
+	//
+	// // отсортировать массив минимальным кол-вом операций/памяти
+	// const arr = [0, 0, 0, 0, 1, 1, 0, 0, 1, 1];
+	// // O(n) = n
+	//
+	// const ar1 = [];
+	// const ar2 = [];
+	// for(let i=0; i < arr.length; i++) {
+	// 	if(!arr[i]) ar1.push(0);
+	// 	else ar2.push(1)
+	// }
+	// ar1.concat(ar2);
 
 </script>
 

@@ -9,92 +9,144 @@
 	<link rel="stylesheet" href="/css/calendar.css">
 </head>
 <body>
-
 <div class="container">
 	<h1>Intro to JS 2</h1>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-body">
-					<h4 id="formHeader">Add new task <span>Some text</span></h4>
-					<div class="form-group">
-						<label for="taskName">Task name <span class="text-danger">*</span></label>
-						<input class="form-control" id="taskName" placeholder="Enter task name">
-						<small id="taskHelp" class="form-text">Это поле обязательно для заполнения</small>
-					</div>
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<a onclick="handleSwitchTab(event)" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Главная</a>
+			<a onclick="handleSwitchTab(event)" class="nav-item nav-link" id="nav-dnd-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DnD</a>
+		</div>
+	</nav>
+	<br>
 
-					<div class="form-group">
-						<label for="taskDescription">Task Description</label>
-						<textarea class="form-control" id="taskDescription" rows="3"></textarea>
-						<small id="descriptionHelp" class="form-text text-muted">TODO</small>
-					</div>
+	<!-- Home  TAB CONTENT -->
+	<div id="home-tab">
+		<div class="row" >
+			<div class="col-sm-6">
+				<div class="card">
+					<div class="card-body">
+						<h4 id="formHeader">Add new task <span>Some text</span></h4>
+						<div class="form-group">
+							<label for="taskName">Task name <span class="text-danger">*</span></label>
+							<input class="form-control" id="taskName" placeholder="Enter task name">
+							<small id="taskHelp" class="form-text">Это поле обязательно для заполнения</small>
+						</div>
 
-					<div class="form-group">
-						<label for="taskDate">Task Date <span class="text-danger">*</span></label>
-						<div class="input-group">
-							<div onclick="handleShowCalendar(event)" class="input-group-prepend">
+						<div class="form-group">
+							<label for="taskDescription">Task Description</label>
+							<textarea class="form-control" id="taskDescription" rows="3"></textarea>
+							<small id="descriptionHelp" class="form-text text-muted">TODO</small>
+						</div>
+
+						<div class="form-group">
+							<label for="taskDate">Task Date <span class="text-danger">*</span></label>
+							<div class="input-group">
+								<div onclick="handleShowCalendar(event)" class="input-group-prepend">
 								<span class="input-group-text" id="calendarOpener">
 									<i class="fa fa-calendar"></i>
 								</span>
+								</div>
+								<input type="text" class="form-control" id="taskDate" aria-describedby="reminderDataHelp" placeholder="Напомнить">
 							</div>
-							<input readonly type="text" class="form-control" id="taskDate" aria-describedby="reminderDataHelp" placeholder="Напомнить">
+							<small id="helpTaskDate" class="form-text text-muted">TODO</small>
 						</div>
-						<small id="helpTaskDate" class="form-text text-muted">TODO</small>
-					</div>
 
-					<div class="form-group form-check">
-						<input type="checkbox" class="form-check-input" id="taskUrgent">
-						<label class="form-check-label" for="taskUrgent">
-							<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i>
-							urgent
-						</label>
-					</div>
-				</div> <!-- END of col-md-6 -->
-
-				<div class="col">
-					<div class="row">
-						<div class="col-sm-6">
-							<button
-									id="actionButton"
-									onclick="handleAddTask();"
-									type="button" class="btn btn-primary">Add new task</button>
+						<div class="form-group form-check">
+							<input type="checkbox" class="form-check-input" id="taskUrgent">
+							<label class="form-check-label" for="taskUrgent">
+								<i class="fas fa-exclamation-triangle" style="color: #ff0000;"></i>
+								urgent
+							</label>
 						</div>
-						<div class="col-sm-6">
-							<button
-									id="cancelButton"
-									onclick="handleClearForm()"
-									type="button" class="btn btn-secondary">Clear form</button>
+					</div> <!-- END of col-md-6 -->
+
+					<div class="col">
+						<div class="row">
+							<div class="col-sm-6">
+								<button
+										id="actionButton"
+										onclick="handleAddTask();"
+										type="button" class="btn btn-primary">Add new task</button>
+							</div>
+							<div class="col-sm-6">
+								<button
+										id="cancelButton"
+										onclick="handleClearForm()"
+										type="button" class="btn btn-secondary">Clear form</button>
+							</div>
 						</div>
-					</div>
-					<br />&nbsp;
-				</div> <!-- END of col -->
+						<br />&nbsp;
+					</div> <!-- END of col -->
 
-			</div> <!-- END of CARD -->
-		</div> <!-- END of col-md-6 -->
-
+				</div> <!-- END of CARD -->
+			</div> <!-- END of col-md-6 -->
 
 
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-body">
-					<h4>List of tasks</h4>
 
-					<ul id="tasksList" class="list-group">
+			<div class="col-sm-6">
+				<div class="card">
+					<div class="card-body">
+						<h4>List of tasks</h4>
 
-					</ul> <!-- END of list-group -->
-					<br />
-					<button
-							style="display: none"
-							id="clrearListButton"
-							onclick="handleClearAllTasks()"
-							type="button" class="btn btn-outline-danger">Clear All Tasks
-					</button>
-				</div> <!-- END of CARD-BODY -->
-			</div> <!-- END of CARD -->
-		</div> <!-- END of col-md-6 -->
+						<ul id="tasksList" class="list-group">
 
-
+						</ul> <!-- END of list-group -->
+						<br />
+						<button
+								style="display: none"
+								id="clrearListButton"
+								onclick="handleClearAllTasks()"
+								type="button" class="btn btn-outline-danger">Clear All Tasks
+						</button>
+					</div> <!-- END of CARD-BODY -->
+				</div> <!-- END of CARD -->
+			</div> <!-- END of col-md-6 -->
+		</div> <!-- END Home  TAB CONTENT -->
 	</div>
+
+
+	<!-- Drag n Drop TAB CONTENT -->
+	<div id="dnd-tab" style="display: none;">
+		<div class="row">
+			<div class="col-sm-4"> <!-- TODO Card -->
+				<div class="card">
+					<div class="card-body card-body-dnd">
+						<h3>Todo</h3>
+						<ul id="todoList" class="list-group">
+
+						</ul> <!-- END of list-group -->
+
+					</div>
+				</div>
+			</div> <!-- END TODO Card -->
+
+			<div class="col-sm-4"> <!-- InProgress Card -->
+				<div class="card">
+					<div class="card-body card-body-dnd">
+						<h3>In progress</h3>
+						<ul id="inprogressList" class="list-group">
+
+						</ul> <!-- END of list-group -->
+
+					</div>
+				</div>
+			</div> <!-- END InProgress Card -->
+
+			<div class="col-sm-4"> <!-- DONE Card -->
+				<div class="card">
+					<div class="card-body card-body-dnd">
+						<h3>Done</h3>
+						<ul id="doneList" class="list-group">
+
+						</ul> <!-- END of list-group -->
+
+					</div>
+				</div>
+			</div> <!-- END DONE Card -->
+
+		</div> <!-- END Drag n Drop TAB CONTENT -->
+	</div>
+
 </div>
 
 <br> <br> &nbsp;
@@ -102,7 +154,7 @@
 
 
 <div id="modal1" class="modal" tabindex="-1" role="dialog" style="display: none; position: absolute;">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Просмотр задачи</h5>
@@ -127,7 +179,9 @@
 			<p id="monthHeader">Month name</p>
 		</div>
 		<div class="arrows">
-			<div id="prevButton" class="arrows_left"><i class="fa fa-angle-left"></i></div>
+			<div id="prevButton" class="arrows_left">
+				<i class="fa fa-angle-left"></i>
+			</div>
 			<div id="nextButton" class="arrows_right"><i class="fa fa-angle-right"></i></div>
 		</div> <!-- END OF arrows -->
 	</div>
