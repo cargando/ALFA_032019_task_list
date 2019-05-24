@@ -475,3 +475,39 @@ function handleSwitchTab(e) {
 	homeHref.classList.toggle('active');
 
 }
+
+////////////// DRAG and DROP
+
+function handleDragStartCard(e) {
+	e.stopPropagation();
+	var parent = e.target.parentElement.parentElement.parentElement.getAttribute("id")
+	var todoListCard = document.getElementById("todoListCard")
+	var inprogressListCard = document.getElementById("inprogressListCard")
+	var doneListCard = document.getElementById("doneListCard")
+
+	if(parent.includes("todo")) {
+		inprogressListCard.classList.add("active-dnd");
+		doneListCard.classList.add("active-dnd");
+	} else if(parent.includes("progress")) {
+		todoListCard.classList.add("active-dnd");
+		doneListCard.classList.add("active-dnd");
+	} else if(parent.includes("done")) {
+		todoListCard.classList.add("active-dnd");
+		inprogressListCard.classList.add("active-dnd");
+
+	}
+
+}
+
+function handleResetCard(e) {
+	e.stopPropagation();
+	var parent = e.target.parentElement.parentElement.parentElement.getAttribute("id")
+	var todoListCard = document.getElementById("todoListCard")
+	var inprogressListCard = document.getElementById("inprogressListCard")
+	var doneListCard = document.getElementById("doneListCard")
+
+	todoListCard.classList.remove("active-dnd");
+	inprogressListCard.classList.remove("active-dnd");
+	doneListCard.classList.remove("active-dnd");
+
+}

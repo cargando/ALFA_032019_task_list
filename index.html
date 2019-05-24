@@ -109,7 +109,7 @@
 	<div id="dnd-tab" style="display: none;">
 		<div class="row">
 			<div class="col-sm-4"> <!-- TODO Card -->
-				<div class="card">
+				<div id="todoListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>Todo</h3>
 						<ul id="todoList" class="list-group">
@@ -121,7 +121,7 @@
 			</div> <!-- END TODO Card -->
 
 			<div class="col-sm-4"> <!-- InProgress Card -->
-				<div class="card">
+				<div id="inprogressListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>In progress</h3>
 						<ul id="inprogressList" class="list-group">
@@ -133,7 +133,7 @@
 			</div> <!-- END InProgress Card -->
 
 			<div class="col-sm-4"> <!-- DONE Card -->
-				<div class="card">
+				<div id="doneListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>Done</h3>
 						<ul id="doneList" class="list-group">
@@ -216,6 +216,14 @@
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		initPage();
+		document.getElementById("todoListCard").addEventListener("dragstart", handleDragStartCard)
+		document.getElementById("inprogressListCard").addEventListener("dragstart", handleDragStartCard)
+		document.getElementById("doneListCard").addEventListener("dragstart", handleDragStartCard)
+
+		document.addEventListener("dragend", handleResetCard)
+		// document.getElementById("todoListCard").addEventListener("dragEnd", handleResetCard)
+		// document.getElementById("inprogressListCard").addEventListener("dragEnd", handleResetCard)
+		// document.getElementById("doneListCard").addEventListener("dragEnd", handleResetCard)
 	});
 
 

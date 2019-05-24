@@ -164,4 +164,9 @@
 
 .card-body-dnd {
 	background-color: #EAEAEA;
+	min-height: 300px;
+}
+
+.active-dnd {
+	border: 3px green dashed;
 }
