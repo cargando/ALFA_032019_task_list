@@ -13,14 +13,14 @@
 	<h1>Intro to JS 2</h1>
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<a onclick="handleSwitchTab(event)" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Главная</a>
-			<a onclick="handleSwitchTab(event)" class="nav-item nav-link" id="nav-dnd-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DnD</a>
+			<a onclick="handleSwitchTab(event)" class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Главная</a>
+			<a onclick="handleSwitchTab(event)" class="nav-item nav-link active" id="nav-dnd-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DnD</a>
 		</div>
 	</nav>
 	<br>
 
 	<!-- Home  TAB CONTENT -->
-	<div id="home-tab">
+	<div id="home-tab" style="display: none;">
 		<div class="row" >
 			<div class="col-sm-6">
 				<div class="card">
@@ -49,6 +49,16 @@
 								<input type="text" class="form-control" id="taskDate" aria-describedby="reminderDataHelp" placeholder="Напомнить">
 							</div>
 							<small id="helpTaskDate" class="form-text text-muted">TODO</small>
+						</div>
+
+						<div class="form-group">
+							<label for="taskStatus">Task status <span class="text-danger">*</span></label>
+							<select class="form-control" name="taskStatus" id="taskStatus" placeholder="Status">
+								<option value="todo">to do</option>
+								<option value="inprogress">in progress</option>
+								<option value="done">done</option>
+							</select>
+							<small id="taskStatusHelp" class="form-text">Это поле обязательно для заполнения</small>
 						</div>
 
 						<div class="form-group form-check">
@@ -106,12 +116,13 @@
 
 
 	<!-- Drag n Drop TAB CONTENT -->
-	<div id="dnd-tab" style="display: none;">
+	<div id="dnd-tab" >
 		<div class="row">
 			<div class="col-sm-4"> <!-- TODO Card -->
 				<div id="todoListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>Todo</h3>
+						<hr color="blue">
 						<ul id="todoList" class="list-group">
 
 						</ul> <!-- END of list-group -->
@@ -124,6 +135,7 @@
 				<div id="inprogressListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>In progress</h3>
+						<hr color="orange">
 						<ul id="inprogressList" class="list-group">
 
 						</ul> <!-- END of list-group -->
@@ -136,6 +148,7 @@
 				<div id="doneListCard" class="card">
 					<div class="card-body card-body-dnd">
 						<h3>Done</h3>
+						<hr color="green">
 						<ul id="doneList" class="list-group">
 
 						</ul> <!-- END of list-group -->
@@ -216,15 +229,93 @@
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		initPage();
-		document.getElementById("todoListCard").addEventListener("dragstart", handleDragStartCard)
-		document.getElementById("inprogressListCard").addEventListener("dragstart", handleDragStartCard)
-		document.getElementById("doneListCard").addEventListener("dragstart", handleDragStartCard)
-
-		document.addEventListener("dragend", handleResetCard)
-		// document.getElementById("todoListCard").addEventListener("dragEnd", handleResetCard)
-		// document.getElementById("inprogressListCard").addEventListener("dragEnd", handleResetCard)
-		// document.getElementById("doneListCard").addEventListener("dragEnd", handleResetCard)
 	});
+
+	// function greet (person) {
+	// 	if (person == { name: 'amy' }) {
+	// 		return 'Первый'
+	// 	} else {
+	// 		return 'Второй'
+	// 	}
+	// }
+	// echo(greet({ name: 'amy' })) // ?
+
+	 // #1
+	// console.log(b); // ?
+	// (function() {
+	// 	var a = b = 5; // window.b // по аналогии onst b но за пределами функции
+	// })();
+
+	// #2
+	// String.prototype.repeatify = String.prototype.repeatify || function(times) {
+	// 	var str = this;
+	// 	for (var i = 1; i < times; i++) {
+	// 		str += this;
+	// 	}
+	// 	return str;
+	// };
+
+	// function test() {
+	// 	console.log(a);
+	// 	console.log(foo());
+	// 	var a = 1;
+	// 	function foo() {
+	// 		return 2;
+	// 	}
+	// }
+	// test();
+
+	// var fullname = 'Marry Poppins';
+	// var obj = {
+	// 	fullname: 'Carlos Santana',
+	// 	prop: {
+	// 		fullname: 'Umberto Rodriges',
+	// 		getFullname: function() {
+	// 			return this.fullname;
+	// 		}
+	// 	}
+	// };
+	// console.log(obj.prop.getFullname()); // ?
+	// var test = obj.prop.getFullname;
+	// console.log(test()); // window.fullname
+
+	// function greet (person) {
+	// 	if (person == { name: 'amy' }) {
+	// 		return 'Первый'
+	// 	} else {
+	// 		return 'Второй'
+	// 	}
+	// }
+	// echo(greet({ name: 'amy' })) // ?
+
+	// let dog = {
+	// 	name: 'doggo',
+	// 	sayName () {
+	// 		// 'use strict'
+	// 		console.log(this.name) // window.name
+	// 	}
+	// }
+	// let sayName = dog.sayName
+	// sayName() // undefined
+
+	// function Dog (name) {
+	// 	this.name = name
+	// }
+	// Dog.bark = function () {
+	// 	console.log(this.name + ' says woof')
+	// }
+	// let fido = new Dog('fido')
+	// echo(typeof fido.bark) // ?
+
+	// function isBig (thing) {
+	// 	if (thing == 0 || thing == 1 || thing == 2) { // thing => "2" == 2 => "2" == "2"
+	// 		return false
+	// 	}
+	// 	return true
+	// }
+	// echo(isBig(1))    // ?
+	// echo(isBig([2]))  // ?
+	// echo(isBig([3]))  // ?
 
 
 

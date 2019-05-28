@@ -165,8 +165,23 @@
 .card-body-dnd {
 	background-color: #EAEAEA;
 	min-height: 300px;
+	transition-property: background-color;
+	transition-duration: 250ms;
+	transition-timing-function: ease;
+}
+.card-body-dnd-accept {
+	background-color: #d2e4d5 !important;
+}
+.card-body-dnd-decline {
+	background-color: #e4d2d2 !important;
 }
 
 .active-dnd {
-	border: 3px green dashed;
+	border: 2px green dashed;
+}
+.inactive-dnd {
+	border: 1px red solid;
+}
+.dragable-task {
+	cursor: pointer;
 }
