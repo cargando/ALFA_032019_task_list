@@ -300,6 +300,8 @@ function initPage() {
 	renderTaskList();
 	initCalendar();
 	renderDnnColums();
+	initDnD();
+
 }
 
 function renderDnnColums() {
@@ -329,7 +331,6 @@ function initCalendar() {
 	});
 	renderCalendar(STATE.calendarDate.getFullYear(), STATE.calendarDate.getMonth());
 
-	initDnD();
 }
 
 // определяет нужно ли закрывать календарь по клику на документ
@@ -515,13 +516,15 @@ function handleResetCardBlock(e) { // убирает пунктирную-рам
 	todoListCard.classList.remove("active-dnd", "inactive-dnd", "card-body-dnd-accept", "card-body-dnd-decline");
 	inprogressListCard.classList.remove("active-dnd", "inactive-dnd", "card-body-dnd-accept", "card-body-dnd-decline");
 	doneListCard.classList.remove("active-dnd", "inactive-dnd", "card-body-dnd-accept", "card-body-dnd-decline");
+
 	todoListCard.querySelector(".card-body").classList.remove("card-body-dnd-accept", "card-body-dnd-decline");
 	inprogressListCard.querySelector(".card-body").classList.remove("card-body-dnd-accept", "card-body-dnd-decline");
 	doneListCard.querySelector(".card-body").classList.remove("card-body-dnd-accept", "card-body-dnd-decline");
 }
 
 function handleDragStartTask(e) {
-	e.stopPropagation();
+	echo(e)
+	//e.stopPropagation();
 	var optionTarget = e.target;
 	var optionDataId = e.target.querySelector('a').getAttribute("data-id");
 	var parent = e.target.parentElement.parentElement.parentElement;
@@ -546,8 +549,6 @@ function handleDragStartTask(e) {
 		inprogressListCard.classList.add("active-dnd");
 		STATE.dnd.from = TASK_DONE;
 	}
-
-	const el = e.target.parentNode.parentNode;
 	e.dataTransfer.setData("text/plain", optionDataId);
 	STATE.dnd.id = optionDataId;
 
